@@ -1,0 +1,1 @@
+javac -classpath /Applications/Max\ 6.1/Cycling\ \'74/java/lib/max.jar:/Applications/Max\ 6.1/Cycling\ \'74/java/lib/jitter.jar /Applications/Max\ 6.1/Cycling\ \'74/java/classes/DmxOverUdp3.java

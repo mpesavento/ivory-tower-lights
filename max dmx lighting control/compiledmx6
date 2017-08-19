@@ -1,0 +1,1 @@
+javac -classpath max.jar:	jitter.jar DmxOverUdp6.java
