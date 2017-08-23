@@ -4,7 +4,6 @@
 
 #define LED_PIN     3
 #define COLOR_ORDER RGB
-#define CHIPSET     WS2811
 #define NUM_LEDS    60
 
 #define BRIGHTNESS  255
@@ -30,18 +29,23 @@ void setup() {
 
 void loop()
 {
+
+  static int offset= 0;
+  fill_rainbow(leds, NUM_LEDS, offset, 1);
+  EVERY_N_MILLISECONDS(80) { offset++; }
+  
   // ChangePalettePeriodically();
-
-  static uint8_t startIndex = 0;
-  startIndex = startIndex + 1; /* motion speed */
-
-  // FillLEDsFromPaletteColors( startIndex);
-  if (startIndex >= NUM_LEDS) {
-    startIndex = 0;
-  }
-  oneAtTime( startIndex);
-
-  fadeall();
+//
+//  static uint8_t startIndex = 0;
+//  startIndex = startIndex + 1; /* motion speed */
+//
+//  // FillLEDsFromPaletteColors( startIndex);
+//  if (startIndex >= NUM_LEDS) {
+//    startIndex = 0;
+//  }
+//  oneAtTime( startIndex);
+//
+//  fadeall();
   FastLED.show();
   FastLED.delay(1000 / UPDATES_PER_SECOND);
 

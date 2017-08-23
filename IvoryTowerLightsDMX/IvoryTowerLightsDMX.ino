@@ -17,7 +17,9 @@
 #define COLOR_ORDER BGR  // most of the 10mm black APA102
 
 // for testing on DMX
-//#define DMX_NUM_CHANNELS 128
+#define DMX_CHANNEL_PER_LIGHT 12
+
+#define DMX_TOTAL_CHANNELS DMX_CHANNEL_PER_LIGHT * 8
 //#define DMX_PIN     3
 //#define COLOR_ORDER RGB  //note that this does not include AW-UV channels
 
@@ -25,7 +27,7 @@
 #define BRIGHTNESS  255
 #define FRAMES_PER_SECOND 60
 
-#define MIRROR 0 // 1 if we split the array and mirror it, 0 if we start on one side
+#define MIRROR 1 // 1 if we split the array and mirror it, 0 if we start on one side
 
 #define SHIFT_DELAY_MS 80 // how many milliseconds we wait before we shift to the next value on the palette
 
@@ -39,11 +41,13 @@
 //***** globals
 CRGB leds[NUM_LEDS];
 
+// create another array to hold the Amber, White, and UV channels
+CRGB leds_awu[NUM_LEDS];
+
+uint8_t dmx_channels[96];
+
 CRGBPalette16 currentPalette;
 TBlendType    currentBlending;
-
-extern CRGBPalette16 myRedWhiteBluePalette;
-extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 
 // store the last pattern index, to reload same pattern on next reset
 uint8_t gCurrentPatternNumber = 255; // Index number of which pattern is current
@@ -222,6 +226,7 @@ static uint16_t getDeltaT() {
   msprev = mscur;  // update the time of last read; this should be at end of loop
   return deltat;
 }
+
 
 // delayToSyncFrameRate - delay how many milliseconds are needed
 //   to maintain a stable frame rate.
