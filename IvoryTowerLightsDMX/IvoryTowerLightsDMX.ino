@@ -17,11 +17,11 @@
 #define COLOR_ORDER BGR  // most of the 10mm black APA102
 
 // for testing on DMX
-#define DMX_CHANNEL_PER_LIGHT 12
+#define DMX_CHANNEL_PER_LIGHT 11
 
 #define DMX_TOTAL_CHANNELS DMX_CHANNEL_PER_LIGHT * 8
-//#define DMX_PIN     3
-//#define COLOR_ORDER RGB  //note that this does not include AW-UV channels
+#define DMX_PIN     3
+#define COLOR_ORDER RGB  //note that this does not include AW-UV channels
 
 #define NUM_LEDS    8
 #define BRIGHTNESS  255
@@ -62,8 +62,8 @@ int eeprom_check = 0; // the byte to set if we have saved the eeprom value
 void setup() {
   delay(100); // sanity delay
   //DmxSimple.usePin(DMX_PIN);
-//  FastLED.addLeds<DMXSIMPLE, DMX_PIN, COLOR_ORDER>(leds, NUM_LEDS );
-  FastLED.addLeds<CHIPSET, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalSMD5050 );
+  FastLED.addLeds<DMXSIMPLE, DMX_PIN, COLOR_ORDER>(leds, NUM_LEDS );
+//  FastLED.addLeds<CHIPSET, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalSMD5050 );
   FastLED.setMaxPowerInVoltsAndMilliamps(5, 2000);
 
   FastLED.setBrightness( BRIGHTNESS );

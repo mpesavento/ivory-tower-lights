@@ -20,7 +20,7 @@ CRGB leds[NUM_LEDS];
 byte mac[] = {
   0xDE, 0xCB, 0xCE, 0xEF, 0xAE, 0xAC
 };
-IPAddress ip(192, 168, 1, 28);
+IPAddress ip(192, 168, 1, 193);
 
 unsigned int localPort = 6038;      // local port to listen on
 

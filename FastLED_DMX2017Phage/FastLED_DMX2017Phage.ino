@@ -4,7 +4,8 @@
 
 #define LED_PIN     3
 #define COLOR_ORDER RGB
-#define NUM_LEDS    60
+#define CHIPSET     WS2811
+#define NUM_LEDS    2
 
 #define BRIGHTNESS  255
 #define UPDATES_PER_SECOND 60
@@ -28,24 +29,19 @@ void setup() {
 }
 
 void loop()
-{
-
-  static int offset= 0;
-  fill_rainbow(leds, NUM_LEDS, offset, 1);
-  EVERY_N_MILLISECONDS(80) { offset++; }
-  
+{ currentPalette = RainbowColors_p;
   // ChangePalettePeriodically();
-//
-//  static uint8_t startIndex = 0;
-//  startIndex = startIndex + 1; /* motion speed */
-//
-//  // FillLEDsFromPaletteColors( startIndex);
-//  if (startIndex >= NUM_LEDS) {
-//    startIndex = 0;
-//  }
-//  oneAtTime( startIndex);
-//
-//  fadeall();
+
+  static uint8_t startIndex = 0;
+  startIndex = startIndex + 1; /* motion speed */
+
+  FillLEDsFromPaletteColors( startIndex);
+  //  if (startIndex >= NUM_LEDS) {
+  //    startIndex = 0;
+  //  }
+  //  oneAtTime( startIndex);
+
+  // fadeall();
   FastLED.show();
   FastLED.delay(1000 / UPDATES_PER_SECOND);
 
@@ -63,7 +59,7 @@ void FillLEDsFromPaletteColors( uint8_t colorIndex)
 
   for ( int i = 0; i < NUM_LEDS; i++) {
     leds[i] = ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending);
-    colorIndex += 3;
+    colorIndex += 1;
 
   }
 }
@@ -91,11 +87,11 @@ void ChangePalettePeriodically()
 {
   uint8_t secondHand = (millis() / 1000) % 60;
   static uint8_t lastSecond = 99;
-  SetupPhagePalette();
-
+  //SetupPhagePalette();
+  currentPalette = RainbowColors_p;
   //    if( lastSecond != secondHand) {
   //        lastSecond = secondHand;
-  //        if( secondHand ==  0)  { currentPalette = RainbowColors_p;         currentBlending = LINEARBLEND; }
+  //  /       if( secondHand ==  0)  { currentPalette = RainbowColors_p;         currentBlending = LINEARBLEND; }
   //        if( secondHand == 10)  { currentPalette = RainbowStripeColors_p;   currentBlending = NOBLEND;  }
   //        if( secondHand == 15)  { currentPalette = RainbowStripeColors_p;   currentBlending = LINEARBLEND; }
   //        if( secondHand == 20)  { SetupPurpleAndGreenPalette();             currentBlending = LINEARBLEND; }
